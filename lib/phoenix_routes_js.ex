@@ -1,0 +1,2 @@
+defmodule PhoenixRoutesJs do
+end
