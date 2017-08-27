@@ -1,6 +1,4 @@
 defmodule PhoenixRoutesJs.Routes do
-  alias Phoenix.Router.Route
-
   def fetch(router) do
     group_by_path(router.__routes__)
   end
@@ -8,7 +6,7 @@ defmodule PhoenixRoutesJs.Routes do
   defp group_by_path(routes), do: group_by_path(routes, %{})
 
   defp group_by_path([route | routes], paths) do
-    %Route{helper: helper, opts: action, path: path} = route
+    %{helper: helper, opts: action, path: path} = route
 
     case helper do
       nil ->

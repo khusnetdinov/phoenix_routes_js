@@ -2,11 +2,19 @@ defmodule PhoenixRoutesJs.View do
   import Phoenix.HTML
   import Phoenix.HTML.Tag
 
-  def render_routes_script(conn) do
-    routes = Map.to_list(PhoenixRoutesJs.Routes.fetch(conn.private[:phoenix_router]))
+  alias PhoenixRoutesJs.Routes
 
+  def render_routes_script(conn) when is_map(conn) do
+    render_routes_script(conn.private[:phoenix_router])
+  end
+
+  def render_routes_script(base) do
     content_tag(:script, [type: "text/javascript"]) do
-      raw(script(routes))
+      base
+        |> Routes.fetch
+        |> Map.to_list
+        |> script
+        |> raw
     end
   end
 

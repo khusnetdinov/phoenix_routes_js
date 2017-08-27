@@ -1,5 +1,5 @@
 # PhoenixRoutesJs  [![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/phoenix_routes_js) [![Build Status](https://travis-ci.org/khusnetdinov/phoenix_routes_js.svg?branch=master)](https://travis-ci.org/khusnetdinov/phoenix_routes_js)
-## Phoenix routes helpers in JavaScript code
+## Phoenix routes helpers in javascript code
 
 ## Installation
 
@@ -16,7 +16,7 @@ end
 
 ### Two steps configuration:
 
-1) Add possibility to use view helper by adding `use PhoenixRoutesJs.View` in templates in `web/views/layout_view.ex` file:
+1) Add possibility to use view helper by adding `use PhoenixRoutesJs.View` in template `**_web/views/layout_view.ex` file:
 
 ```elixir
 defmodule Project.LayoutView do
@@ -27,7 +27,7 @@ end
 
 ```
 
-2) Add helper `render_routes_script` to you layout in `/web/templates/layout/app.html.eex` before main javascript file:
+2) Add helper `render_routes_script` to you layout in `**_web/templates/layout/app.html.eex` before main javascript file:
 
 ```elixir
   ...
@@ -36,11 +36,17 @@ end
   ...
 ```
 
-Now you can read phoenix variables in browser console and javascript code.
+### Examples
 
-### JavaScript
+```
+  render_routes_script(@conn)
+  render_routes_script(Project.Router)
+```
 
-#### Helpers
+Now you can use phoenix routes helpers in browser console and javascript code.
+
+
+### Helpers
 ```
    user_path   GET      /users            UserController :index    Routes.user_path('index')
    user_path   GET      /users/:id/edit   UserController :edit     Routes.user_path('edit', ':id')
@@ -48,9 +54,11 @@ Now you can read phoenix variables in browser console and javascript code.
    user_path   GET      /users/:id        UserController :show     Routes.user_path('show', ':id')
    user_path   POST     /users            UserController :create   Routes.user_path('create')
    user_path   PATCH    /users/:id        UserController :update   Routes.user_path('update', ':id')
-               PUT      /users/:id        UserController :update   
+               PUT      /users/:id        UserController :update
    user_path   DELETE   /users/:id        UserController :delete   Routes.user_path('delete', ':id')
 ```
+
+### JavaScript
 
 Routes object is kept in `window`.
 
@@ -63,7 +71,7 @@ Now you can access to you helpers in console:
 
 Routes.user_path('edit', 1)
 
-//=> /users/1
+//=> /users/1/edit
 ```
 
 #### JavaScript assets
@@ -73,7 +81,7 @@ Routes.user_path('edit', 1)
 
 window.Routes.user_path('edit', 1)
 
-//=> /users/1
+//=> /users/1/edit
 ```
 
 #### JavaScript options:
@@ -82,7 +90,7 @@ Routes options:
 
   - `format` - Add '.format' to request path string.
   - `params` - Add query string to request path.
-  
+
 ```JavaScript
 Routes.user_path('index', {format: 'json', params: {filter: 'query', sort: 'acs'}})
 
