@@ -1,13 +1,21 @@
 defmodule PhoenixRoutesJs.View do
+  @moduledoc """
+  Module keep javascript helper that renders main script
+  """
+
   import Phoenix.HTML
   import Phoenix.HTML.Tag
 
   alias PhoenixRoutesJs.Routes
 
+  @doc """
+  Returns script for injecting helpers to window object
+  """
   def render_routes_script(conn) when is_map(conn) do
     render_routes_script(conn.private[:phoenix_router])
   end
 
+  @doc false
   def render_routes_script(base) do
     content_tag(:script, [type: "text/javascript"]) do
       base
@@ -19,6 +27,9 @@ defmodule PhoenixRoutesJs.View do
   end
 
 
+  @doc """
+  Generate javascript script based on routes
+  """
   defp script(routes) do
     """
 
@@ -57,17 +68,24 @@ defmodule PhoenixRoutesJs.View do
   end
 
 
+  @doc """
+  Generates routes functions based on defined actions
+  """
   defp render_routes_functions(routes) do
     render_routes_functions(routes, [])
   end
 
+  @doc false
   defp render_routes_functions([route | routes], functions) do
     render_routes_functions(routes, functions ++ [render_route(route)])
   end
 
+  @doc false
   defp render_routes_functions([], functions), do: functions
 
-
+  @doc """
+  Render router function
+  """
   defp render_route({function_name, actions}) do
     function = function_name <> "_path"
     actions_list = Map.keys(actions) |> Enum.map(fn(key) -> '"#{key}"' end) |> Enum.join(", ")
@@ -91,18 +109,22 @@ defmodule PhoenixRoutesJs.View do
     """
   end
 
-
+  @doc """
+  Render actions functions for route helper
+  """
   defp render_actions_functions(actions) do
     render_actions_functions(actions, [])
   end
 
+  @doc false
   defp render_actions_functions([action | actions], functions) do
     render_actions_functions(actions, functions ++ [render_action(action)])
   end
 
+  @doc false
   defp render_actions_functions([], functions), do: functions
 
-
+  @doc false
   defp render_action({action, pattern}) do
     [args, path, length] = arguments(pattern)
     """
@@ -119,6 +141,9 @@ defmodule PhoenixRoutesJs.View do
     """
   end
 
+  @doc """
+  Render variables assigment to arguments
+  """
   defp arguments(pattern) do
     paths = String.split(pattern, "/")
 
@@ -136,12 +161,24 @@ defmodule PhoenixRoutesJs.View do
     [args_string, path_string, length(args)]
   end
 
+  @doc """
+  Filter arguments
+  """
   defp argument_filter(path), do: String.starts_with?(path, ":")
 
+  @doc """
+  Removes prefix from arguments
+  """
   defp argument_normalizer(path), do: String.replace_prefix(path, ":", "")
 
+  @doc """
+  Renders arguments
+  """
   defp render_arguments_string(args), do: Enum.join(args, ", ")
 
+  @doc """
+  Replace prefix to variables
+  """
   defp path_normalizer(path) do
     case String.starts_with?(path, ":") do
       true ->
@@ -151,8 +188,14 @@ defmodule PhoenixRoutesJs.View do
     end
   end
 
+  @doc """
+  Render javascript path string
+  """
   defp render_path_string(paths), do: Enum.join(paths, "/")
 
+  @doc """
+  Render variables
+  """
   defp render_variables(args) do
     cond do
       String.contains?(args, ",") ->
@@ -168,8 +211,14 @@ defmodule PhoenixRoutesJs.View do
     end
   end
 
+  @doc """
+  Render javascript variable
+  """
   defp vars_normalizer({key, index}), do: "var #{key} = args[#{index}];\n"
 
+  @doc """
+  Render all variables
+  """
   defp render_vars_string(vars), do: Enum.join(vars, "")
 end
 
