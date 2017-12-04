@@ -38,7 +38,8 @@ defmodule PhoenixRoutesJs.View do
         this.message = "route " + name + "(" + action + ", " + args.join(", ") + ") doesn't exists!";
       };
 
-      function render_options(options = {}) {
+      function render_options(options) {
+        options = (typeof options !== 'undefined') ? options : {};
         if (Object.keys(options).length === 0) return "";
 
         var format = options['format'] && (options['format'].length !== 0) ? '.' + options['format'] : "";
@@ -92,7 +93,9 @@ defmodule PhoenixRoutesJs.View do
     actions = Map.to_list(actions)
     """
 
-        #{function}: function(action = 'index', ...rest) {
+        #{function}: function(action) {
+          action = (typeof action !== 'undefined') ? action : 'index';
+          var rest = Array.prototype.slice.call(arguments, 1);
           var notFoundIndex = -1;
           var actions = [#{actions_list}];
           var function_name = '#{function}';
