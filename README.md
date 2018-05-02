@@ -1,4 +1,4 @@
-# PhoenixRoutesJs  [![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/phoenix_routes_js) [![Build Status](https://travis-ci.org/khusnetdinov/phoenix_routes_js.svg?branch=master)](https://travis-ci.org/khusnetdinov/phoenix_routes_js)
+# PhoenixRoutesJs  [![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/phoenix_routes_js) [![Build Status](https://travis-ci.org/khusnetdinov/phoenix_routes_js.svg?branch=master)](https://travis-ci.org/khusnetdinov/phoenix_routes_js) [![Open Source Helpers](https://www.codetriage.com/khusnetdinov/phoenix_routes_js/badges/users.svg)](https://www.codetriage.com/khusnetdinov/phoenix_routes_js)
 ## Phoenix routes helpers in javascript code
 
 ## Installation
