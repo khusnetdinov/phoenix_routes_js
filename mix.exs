@@ -37,8 +37,8 @@ defmodule PhoenixRoutesJs.Mixfile do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev},
-      {:phoenix_html, "~> 2.7"},
-      {:plug, "~> 1.0"}
+      {:phoenix_html, "~> 3.2"},
+      {:plug, "~> 1.13"}
     ]
   end
 end
